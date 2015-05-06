@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+<head>
+<title>ICGC Linked Data Portal</title>
+<script type="text/javascript" src="./lib/jquery-1.10.1.min.js"></script>
+<script type="text/javascript" src="./lib/d3.v3.min.js"></script>
+<script type="text/javascript" src="./js/d3sparql.js"></script>
+<script type="text/javascript" src="./js/icgc.js"></script>
+<link rel="stylesheet" href="./default.css" type="text/css" />
+<link rel="stylesheet" href="./font-awesome-4.2.0/css/font-awesome.min.css" type="text/css" />
+<link rel="shortcut icon" href="./favicon.ico" />
+<script type="text/javascript">
+$(function(){
+  get_header();
+  index_projects(function(){
+    return false;
+  });
+})
+$(function(){
+  $("#accordion dt").on("click", function() {
+    $(this).next().slideToggle("slow");
+    $(this).toggleClass("shown");
+  });
+});
+</script>
+<style type="text/css">
+<!--
+div.menu {
+  float: left;
+  width: 280px;
+  margin: 10px 10px 10px 10px;
+}
+div.content {
+  float: left;
+  width: 900px;
+  height: 100%;
+  margin: 10px 0px;
+}
+div.subcontent {
+  float: left;
+  width: 280px;
+  height: 100%;
+  margin: 10px 10px 10px 10px;
+}
+div.subtitle {
+  margin: 30px 10px 10px 0px;
+}
+#accordion dt{
+  display: block;
+  text-align: center;
+  cursor: pointer;
+  color: steelblue;
+}
+#accordion dt.shown{
+  color: white;
+}
+#accordion dd{
+  display: none;
+}
+-->
+</style>
+</head>
+<body>
+  <div id="main">
+    <div id="header"></div>
+    <div class="menu">
+      <svg width="250" height="50">
+        <circle cx="25" cy="25" r="25" stroke="none" fill="goldenrod" />
+        <text x="25" y="25" font-size="20px" text-anchor="middle" alignment-baseline="central" fill="white">&#xf0ca</text>
+        <text id="donor_id" x="65" y="25" font-size="20px" alignment-baseline="central">Cancer Projects</text>
+      </svg>
+    </div>
+    <div class="menu">
+      <svg width="250" height="50">
+        <a xlink:href="./search.html">
+	        <circle cx="25" cy="25" r="25" stroke="none" fill="steelblue" />
+	        <text x="25" y="25" font-size="30px" text-anchor="middle" alignment-baseline="central" fill="white">&#xf002</text>
+	        <text id="donor_id" x="65" y="25" font-size="20px" alignment-baseline="central">Advanced Search</text>
+        </a>
+      </svg>
+    </div>
+    <div class="menu">
+      <svg width="250" height="50">
+        <circle cx="25" cy="25" r="25" stroke="none" fill="skyblue" />
+        <text x="25" y="25" font-size="30px" text-anchor="middle" alignment-baseline="central" fill="white">&#xf1c0</text>
+        <text id="donor_id" x="65" y="25" font-size="20px" alignment-baseline="central">Data Repository</text>
+      </svg>
+    </div>
+    <div class="content">
+	    <div class="subcontent">
+	      <div class="subtitle">About this Project</div>
+	      <div>
+	        The ICGC Linked Data Portal is not an official data portal of ICGC Project.
+	        We are obtaining a part of ICGC data from <a href="https://dcc.icgc.org/">ICGC Data Portal</a>
+	        and converting it into RDF model for more efficient data distribution and integration.
+	        To download those datasets, please go to our <a>Data Repository</a>.
+	        <br/><br/>
+	        Also, to demonstrate how semantic web applications can work, we are implementing <a>Advanced
+	        Search</a> function. Our aim is to show cancer genome data in RDF model can be easily integrated
+	        with other linked open data so that we can design useful semantic web applications.
+	      </div>
+	    </div>
+	    <div class="subcontent">
+	      <div class="subtitle">Data Release</div>
+	      <div>Only a part of donor data is loaded for the current trial. The pie chart below shows the donor distribution by projects.</div>
+	      <div id="index_projects"></div>
+	      <div id="status"></div>
+	    </div>
+	    <div class="subcontent">
+	      <div class="subtitle">For Developers</div>
+	      <div>
+	        Data conversion methods and data schema are described below. Also, all codes of this site
+	        are publicly available at <a href="https://github.com/ryotas/linked-icgc">GitHub</a>.
+	        <BR><BR>
+	      </div>
+	    </div>
+	  </div>
+	  <dl id="accordion">
+	  <dt>Show data conversion methods and data schema.</dt>
+	  <dd>
+	  <div class="content">
+	    <div class="subcontent">
+	      <div class="subtitle">Project Overview</div>
+	      <div></div>
+	    <img border="0" src="./image/icgclink_overview.png" width="900">
+    </div>
+    <div class="content">
+      <div class="subcontent">
+        <div class="subtitle">Data Model</div>
+        <div></div>
+      <img border="0" src="./image/icgclink_model.png" width="900">
+    </div>
+    </dd>
+    </dl>
+  </div>
+</body>
+</html>

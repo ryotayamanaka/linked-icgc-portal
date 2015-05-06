@@ -1,0 +1,215 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+<head>
+<title>ICGC Linked Data Portal</title>
+<script type="text/javascript" src="./lib/jquery-1.10.1.min.js"></script>
+<script type="text/javascript" src="./lib/d3.v3.min.js"></script>
+<script type="text/javascript" src="./js/d3sparql.js"></script>
+<script type="text/javascript" src="./js/icgc.js"></script>
+<link rel="stylesheet" href="./default.css" type="text/css" />
+<link rel="stylesheet" href="./font-awesome-4.2.0/css/font-awesome.min.css" type="text/css" />
+<link rel="shortcut icon" href="./favicon.ico" />
+<script type="text/javascript">
+$(function(){
+  get_header();
+  // TABPANEL
+  $("ul.panel li:not("+$("ul.tab li a.selected").attr("href")+")").hide()
+  $("ul.tab li a").click(function(){
+      $("ul.tab li a").removeClass("selected")
+      $(this).addClass("selected")
+      $("ul.panel li").hide()
+      $($(this).attr("href")).show()
+      
+      if($(this).attr("href") == "#tab1") {
+        tab1();
+      }
+      else if($(this).attr("href") == "#tab2") {
+        tab2();
+      }
+      else if($(this).attr("href") == "#tab3") {
+        tab3();
+      }
+      return false;
+  })
+  facet(function(){
+    refresh();
+  })
+})
+function facet(callback){
+  checkbox_param("primary_site", function(){
+    checkbox_param("project_code", function(){
+      checkbox_param("gender", function(){
+        checkbox_param("vital_status", function(){
+          callback();
+        });
+      });
+    });
+  });
+}
+function refresh(){
+  change_load_status("#tab1 div.load_status", "loading");
+  change_load_status("#tab2 div.load_status", "loading");
+  change_load_status("#tab3 div.load_status", "loading");
+  search_count(function(){
+    $("ul.tab li a").each(function(){
+      if($(this).attr("class") == "selected") {
+        if($(this).attr("href") == "#tab1") { tab1(); }
+        else if($(this).attr("href") == "#tab2") { tab2(); }
+        else if($(this).attr("href") == "#tab3") { tab3(); }
+      }
+    });
+  });
+}
+function tab1(){
+  if(is_loaded("#tab1 div.load_status")) {
+    donors_piecharts(function(){
+      donors_htmltable(function(){
+        change_load_status("#tab1 div.load_status", "loaded");
+        return false;
+      });
+    });
+  }
+}
+function tab2(){
+  if(is_loaded("#tab2 div.load_status")) {
+    genes_htmltable(function(){
+      change_load_status("#tab2 div.load_status", "loaded");
+      return false;
+    });
+  }
+}
+function tab3(){
+  if(is_loaded("#tab3 div.load_status")) {
+    mutations_piecharts(function(){
+      mutations_htmltable(function(){
+        change_load_status("#tab3 div.load_status", "loaded");
+        return false;
+      });
+    });
+  }
+}
+
+</script>
+<style type="text/css">
+<!--
+div#facet{
+  width:140px;
+  height:500px;
+  margin:50px auto;
+  float:left;
+}
+div.facet_title{
+  font-size:18px;
+  margin:10px auto;
+}
+div.facet_checkbox{
+  margin:10px 5px;
+}
+div#container{
+	width:660px;
+	height:500px;
+	margin:50px auto;
+	float:left;
+}
+div.piecharts{
+  height:160px;
+  margin:30px auto;
+  text-align:center;
+  font-size:16px;
+}
+div.piecharts div{
+  width:159px;
+  float:left;
+}
+ul.tab li{
+	list-style-type:none;
+	width:220px;
+	height:40px;
+	float:left;
+}
+ul.tab li a{
+	outline:none;
+	background:#eeeeee;
+	text-decoration:none;
+	display:block;
+	color:#333;
+	line-height:40px;
+	text-align:center;
+	border-bottom:1px solid #9FB7D4;
+}
+ul.tab li a.selected{
+	background:#ffffff;
+	cursor:default;
+	border:1px solid #9FB7D4;
+	border-bottom:none;
+}
+ul.panel{
+	clear:both;
+	border:1px solid #9FB7D4;
+	border-top:none;
+}
+ul.panel li{
+	list-style-type:none;
+	padding:10px;
+	color:#333;
+}
+-->
+</style>
+</head>
+<body>
+  <div id="main">
+    <div id="header"></div>
+    <div id="title">
+      <svg width="800" height="50">
+        <circle cx="25" cy="25" r="25" stroke="none" fill="steelblue" />
+        <text x="25" y="25" font-size="30px" text-anchor="middle" alignment-baseline="central" fill="white">&#xf002</text>
+        <text id="donor_id" x="65" y="25" font-size="30px" alignment-baseline="central">Advanced Search</text>
+      </svg>
+    </div>
+    <div id="facet">
+      <div class="facet_title">Primary Site</div>
+      <div class="facet_checkbox" id="facet_primary_site"></div>
+      <div class="facet_title">Project</div>
+      <div class="facet_checkbox" id="facet_project_code"></div>
+      <div class="facet_title">Gender</div>
+      <div class="facet_checkbox" id="facet_gender"></div>
+      <div class="facet_title">Vital Status</div>
+      <div class="facet_checkbox" id="facet_vital_status"></div>
+    </div>
+		<div id="container">
+	    <ul class="tab">
+		    <li><a href="#tab1" class="selected">Donors (<span id="donors_count"></span>)</a></li>
+		    <li><a href="#tab2">Genes (<span id="genes_count"></span>)</a></li>
+		    <li><a href="#tab3">Mutations (<span id="mutations_count"></span>)</a></li>
+	    </ul>
+	    <ul class="panel">
+		    <li id="tab1">
+		      <div class="load_status"></div>
+		      <div class="piecharts">
+		        <div>Project<div id="project"></div></div>
+		        <div>Gender<div id="gender"></div></div>
+		        <div>Vital Status<div id="vital_status"></div></div>
+		        <div>Age<div id="age"></div></div>
+		      </div>
+		      <div class="subtitle">Donors</div>
+		      <div id="search_donors"></div>
+		    </li>
+		    <li id="tab2">
+		      <div class="load_status"></div>
+		      <div class="subtitle">Genes</div>
+		      <div id="search_genes"></div>
+		    </li>
+		    <li id="tab3">
+		      <div class="load_status"></div>
+  		    <div class="piecharts">
+	  	      <div>Consequence Type<div id="consequence_type"></div></div>
+            <div>Platform<div id="platform"></div></div>
+          </div>
+		      <div class="subtitle">Mutations</div>
+		      <div id="search_mutations"></div>
+		    </li>
+	    </ul>
+		</div>
+	</div>
+</body>
+</html>

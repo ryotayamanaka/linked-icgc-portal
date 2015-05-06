@@ -1,0 +1,299 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE Ontology [
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY xml "http://www.w3.org/XML/1998/namespace" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="http://icgc.link/icgc.owl"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     ontologyIRI="http://icgc.link/icgc.owl">
+    <Prefix name="" IRI="http://icgc.link/icgc.owl#"/>
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Prefix name="vocab" IRI="http://icgc.link/vocab/"/>
+    <Declaration>
+        <Class abbreviatedIRI="vocab:Detection"/>
+    </Declaration>
+    <Declaration>
+        <Class abbreviatedIRI="vocab:Donor"/>
+    </Declaration>
+    <Declaration>
+        <Class abbreviatedIRI="vocab:Effect"/>
+    </Declaration>
+    <Declaration>
+        <Class abbreviatedIRI="vocab:Mutation"/>
+    </Declaration>
+    <Declaration>
+        <Class abbreviatedIRI="vocab:Project"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="/project"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty abbreviatedIRI="vocab:donor"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty abbreviatedIRI="vocab:mutation"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty abbreviatedIRI="vocab:age"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty abbreviatedIRI="vocab:assembly_version"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty abbreviatedIRI="vocab:chromosome_start"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty abbreviatedIRI="vocab:country"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty abbreviatedIRI="vocab:donor_id"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty abbreviatedIRI="vocab:mutation_type"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty abbreviatedIRI="vocab:primary_site"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty abbreviatedIRI="vocab:project_code"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty abbreviatedIRI="vocab:quality_score"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty abbreviatedIRI="vocab:sex"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty abbreviatedIRI="vocab:total_read_count"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty abbreviatedIRI="vocab:verification_status"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty abbreviatedIRI="vocab:vital_status"/>
+    </Declaration>
+    <SubClassOf>
+        <Class abbreviatedIRI="vocab:Detection"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty abbreviatedIRI="vocab:donor"/>
+            <Class abbreviatedIRI="vocab:Donor"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class abbreviatedIRI="vocab:Detection"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty abbreviatedIRI="vocab:mutation"/>
+            <Class abbreviatedIRI="vocab:Mutation"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class abbreviatedIRI="vocab:Detection"/>
+        <DataExactCardinality cardinality="1">
+            <DataProperty abbreviatedIRI="vocab:quality_score"/>
+            <Datatype abbreviatedIRI="xsd:string"/>
+        </DataExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class abbreviatedIRI="vocab:Detection"/>
+        <DataExactCardinality cardinality="1">
+            <DataProperty abbreviatedIRI="vocab:total_read_count"/>
+            <Datatype abbreviatedIRI="xsd:integer"/>
+        </DataExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class abbreviatedIRI="vocab:Detection"/>
+        <DataExactCardinality cardinality="1">
+            <DataProperty abbreviatedIRI="vocab:verification_status"/>
+            <Datatype abbreviatedIRI="xsd:string"/>
+        </DataExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class abbreviatedIRI="vocab:Donor"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="/project"/>
+            <Class abbreviatedIRI="vocab:Project"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class abbreviatedIRI="vocab:Donor"/>
+        <DataSomeValuesFrom>
+            <DataProperty abbreviatedIRI="vocab:donor_id"/>
+            <Datatype abbreviatedIRI="xsd:string"/>
+        </DataSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class abbreviatedIRI="vocab:Donor"/>
+        <DataSomeValuesFrom>
+            <DataProperty abbreviatedIRI="vocab:vital_status"/>
+            <Datatype abbreviatedIRI="xsd:string"/>
+        </DataSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class abbreviatedIRI="vocab:Donor"/>
+        <DataExactCardinality cardinality="1">
+            <DataProperty abbreviatedIRI="vocab:age"/>
+            <Datatype abbreviatedIRI="xsd:integer"/>
+        </DataExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class abbreviatedIRI="vocab:Donor"/>
+        <DataExactCardinality cardinality="1">
+            <DataProperty abbreviatedIRI="vocab:sex"/>
+            <Datatype abbreviatedIRI="xsd:string"/>
+        </DataExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class abbreviatedIRI="vocab:Effect"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty abbreviatedIRI="vocab:mutation"/>
+            <Class abbreviatedIRI="vocab:Mutation"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class abbreviatedIRI="vocab:Mutation"/>
+        <DataSomeValuesFrom>
+            <DataProperty abbreviatedIRI="vocab:mutation_type"/>
+            <Datatype abbreviatedIRI="xsd:string"/>
+        </DataSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class abbreviatedIRI="vocab:Mutation"/>
+        <DataExactCardinality cardinality="1">
+            <DataProperty abbreviatedIRI="vocab:assembly_version"/>
+            <Datatype abbreviatedIRI="xsd:string"/>
+        </DataExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class abbreviatedIRI="vocab:Mutation"/>
+        <DataExactCardinality cardinality="1">
+            <DataProperty abbreviatedIRI="vocab:chromosome_start"/>
+            <Datatype abbreviatedIRI="xsd:string"/>
+        </DataExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class abbreviatedIRI="vocab:Project"/>
+        <DataExactCardinality cardinality="1">
+            <DataProperty abbreviatedIRI="vocab:country"/>
+            <Datatype abbreviatedIRI="xsd:string"/>
+        </DataExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class abbreviatedIRI="vocab:Project"/>
+        <DataExactCardinality cardinality="1">
+            <DataProperty abbreviatedIRI="vocab:primary_site"/>
+            <Datatype abbreviatedIRI="xsd:string"/>
+        </DataExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class abbreviatedIRI="vocab:Project"/>
+        <DataExactCardinality cardinality="1">
+            <DataProperty abbreviatedIRI="vocab:project_code"/>
+            <Datatype abbreviatedIRI="xsd:string"/>
+        </DataExactCardinality>
+    </SubClassOf>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="/project"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="/project"/>
+            <Class abbreviatedIRI="vocab:Donor"/>
+        </ObjectSomeValuesFrom>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty abbreviatedIRI="vocab:donor"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI="vocab:donor"/>
+            <Class abbreviatedIRI="vocab:Detection"/>
+        </ObjectSomeValuesFrom>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty abbreviatedIRI="vocab:mutation"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty abbreviatedIRI="vocab:mutation"/>
+            <Class abbreviatedIRI="vocab:Detection"/>
+        </ObjectExactCardinality>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty abbreviatedIRI="vocab:mutation"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty abbreviatedIRI="vocab:mutation"/>
+            <Class abbreviatedIRI="vocab:Effect"/>
+        </ObjectExactCardinality>
+    </ObjectPropertyDomain>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="/project"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="/project"/>
+            <Class abbreviatedIRI="vocab:Project"/>
+        </ObjectExactCardinality>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty abbreviatedIRI="vocab:donor"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty abbreviatedIRI="vocab:donor"/>
+            <Class abbreviatedIRI="vocab:Donor"/>
+        </ObjectExactCardinality>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty abbreviatedIRI="vocab:mutation"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty abbreviatedIRI="vocab:mutation"/>
+            <Class abbreviatedIRI="vocab:Mutation"/>
+        </ObjectExactCardinality>
+    </ObjectPropertyRange>
+    <DataPropertyDomain>
+        <DataProperty abbreviatedIRI="vocab:country"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+            <Class abbreviatedIRI="vocab:Project"/>
+        </ObjectSomeValuesFrom>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty abbreviatedIRI="vocab:donor_id"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+            <Class abbreviatedIRI="vocab:Donor"/>
+        </ObjectExactCardinality>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty abbreviatedIRI="vocab:sex"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+            <Class abbreviatedIRI="vocab:Donor"/>
+        </ObjectExactCardinality>
+    </DataPropertyDomain>
+    <DataPropertyRange>
+        <DataProperty abbreviatedIRI="vocab:country"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty abbreviatedIRI="vocab:donor_id"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty abbreviatedIRI="vocab:sex"/>
+        <DataOneOf>
+            <Literal datatypeIRI="&rdf;PlainLiteral"></Literal>
+            <Literal datatypeIRI="&rdf;PlainLiteral">female</Literal>
+            <Literal datatypeIRI="&rdf;PlainLiteral">male</Literal>
+        </DataOneOf>
+    </DataPropertyRange>
+</Ontology>
+
+
+
+<!-- Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net -->
+
