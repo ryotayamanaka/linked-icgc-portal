@@ -2,7 +2,7 @@
 // EACH HTML FILES USE JQUERY AND THE FOLLOWING FUNCTIONS (BUT NO D3SPARQL)
 
 //var endpoint = 'http://icgc.link:9001/sparql';
-var endpoint = 'http://54.238.218.145:9001/sparql';
+var endpoint = 'http://icgc.link:9001/sparql';
 
 var params = {};
 
