@@ -45,6 +45,9 @@ div.subcontent {
 div.subtitle {
   margin: 30px 10px 10px 0px;
 }
+ul {
+  margin: 0px 0px 0px 20px;
+}
 #accordion dt{
   display: block;
   text-align: center;
@@ -81,7 +84,7 @@ div.subtitle {
     </div>
     <div class="menu">
       <svg width="250" height="50">
-        <a href="./repository.html">
+        <a xlink:href="./repository/">
           <circle cx="25" cy="25" r="25" stroke="none" fill="skyblue" />
           <text x="25" y="25" font-size="30px" text-anchor="middle" alignment-baseline="central" fill="white">&#xf1c0</text>
           <text id="donor_id" x="65" y="25" font-size="20px" alignment-baseline="central">Data Repository</text>
@@ -95,11 +98,12 @@ div.subtitle {
 	        The ICGC Linked Data Portal is not an official data portal of ICGC Project.
 	        We are obtaining a part of ICGC data from <a href="https://dcc.icgc.org/">ICGC Data Portal</a>
 	        and converting it into RDF model for more efficient data distribution and integration.
-	        To download those datasets, please go to our <a>Data Repository</a>.
+	        Those RDF datasets are generated according to the data model, <a href="./icgc-0.1.owl">icgc.owl</a>,
+	        and available at <a href="./repository/">Data Repository</a>.
 	        <br/><br/>
 	        Also, to demonstrate how semantic web applications can work, we are implementing <a>Advanced
-	        Search</a> function. Our aim is to show cancer genome data in RDF model can be easily integrated
-	        with other linked open data so that we can design useful semantic web applications.
+	        Search</a> function. Our aim is to show the cancer genome data in RDF model can be easily integrated
+	        with other linked data so that we can immediately design useful semantic web applications.
 	      </div>
 	    </div>
 	    <div class="subcontent">
@@ -111,9 +115,23 @@ div.subtitle {
 	    <div class="subcontent">
 	      <div class="subtitle">For Developers</div>
 	      <div>
-	        Data conversion methods and data schema are described below. Also, all codes of this site
-	        are publicly available at <a href="https://github.com/ryotas/linked-icgc">GitHub</a>.
-	        <BR><BR>
+	        Data conversion methods and data schema are described below. All codes of this project
+	        are publicly available at the following GitHub repositories.
+	        <br/><br/>
+	        <ul>
+	          <li><a href="https://github.com/ryotas/linked-icgc">linked-icgc</a>&nbsp;(data conversion)</li>
+	          <li><a href="https://github.com/ryotas/linked-icgc-portal">linked-icgc-portal</a>&nbsp;(main of this portal)</li>
+	          <li><a href="https://github.com/ktym/d3sparql">d3sparql</a>&nbsp;(compornent of this portal)</li>
+	          <li><a href="https://github.com/ryotas/linked-icgc">sparql-gateway</a>&nbsp;(query result caching)</li>
+	        </ul>
+	        <br/>
+	        This portal also uses the following datasets from public data sources.
+	        <br/><br/>
+          <ul>
+            <li><a href="http://download.bio2rdf.org/release/3/hgnc/hgnc.html">HGNC</a>&nbsp;(hgnc_complete_set.nq.gz)</li>
+            <li><a href="http://download.bio2rdf.org/release/3/reactome/reactome.html">Reactome</a>&nbsp;(Homo_sapiens.owl)</li>
+          </ul>
+          <br/>
 	      </div>
 	    </div>
 	  </div>
@@ -124,13 +142,13 @@ div.subtitle {
 	    <div class="subcontent">
 	      <div class="subtitle">Project Overview</div>
 	      <div></div>
-	    <img border="0" src="./image/icgclink_overview.png" width="900">
+	    <img border="0" src="./image/icgclink_overview.png" width="900" />
     </div>
     <div class="content">
       <div class="subcontent">
         <div class="subtitle">Data Model</div>
         <div></div>
-      <img border="0" src="./image/icgclink_model.png" width="900">
+      <img border="0" src="./image/icgclink_model.png" width="900" />
     </div>
     </dd>
     </dl>

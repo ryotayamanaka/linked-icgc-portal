@@ -88,7 +88,12 @@ function tab3(){
     });
   }
 }
-
+// FACE MENU ACCORDION
+$(function(){
+  $("#facet dt").on("click", function() {
+      $(this).next().slideToggle();
+  });
+});
 </script>
 <style type="text/css">
 <!--
@@ -178,6 +183,12 @@ div#search_mutations td:nth-of-type(3) {
 div#search_mutations td:nth-of-type(4) {
   text-align: right;
 }
+#facet dt{
+  cursor:pointer;
+}
+#facet dd{
+  display:none;
+}
 -->
 </style>
 </head>
@@ -192,14 +203,16 @@ div#search_mutations td:nth-of-type(4) {
       </svg>
     </div>
     <div id="facet">
-      <div class="facet_title">Primary Site</div>
-      <div class="facet_checkbox" id="facet_primary_site"></div>
-      <div class="facet_title">Project</div>
-      <div class="facet_checkbox" id="facet_project_code"></div>
-      <div class="facet_title">Gender</div>
-      <div class="facet_checkbox" id="facet_gender"></div>
-      <div class="facet_title">Vital Status</div>
-      <div class="facet_checkbox" id="facet_vital_status"></div>
+      <dl id="facet">
+        <dt><div class="facet_title">Primary Site</div></dt>
+        <dd style="display:inline"><div class="facet_checkbox" id="facet_primary_site"></div></dd>
+        <dt><div class="facet_title">Project</div></dt>
+        <dd><div class="facet_checkbox" id="facet_project_code"></div></dd>
+        <dt><div class="facet_title">Gender</div></dt>
+        <dd><div class="facet_checkbox" id="facet_gender"></div></dd>
+        <dt><div class="facet_title">Vital Status</div></dt>
+        <dd><div class="facet_checkbox" id="facet_vital_status"></div></dd>
+      </dl>
     </div>
 		<div id="container">
 	    <ul class="tab">

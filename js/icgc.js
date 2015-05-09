@@ -2,7 +2,7 @@
 // EACH HTML FILES USE JQUERY AND THE FOLLOWING FUNCTIONS (BUT NO D3SPARQL)
 
 //var endpoint = 'http://icgc.link:9001/sparql';
-var endpoint = 'http://icgc.link:9001/sparql';
+var endpoint = 'http://54.178.162.59:9001/sparql';
 
 var params = {};
 
@@ -341,7 +341,7 @@ d3sparql.checkbox = function(json, config) {
     if (label == "") {
       label = "No Data";
     }
-    $(opts.position).append($('<input type="checkbox" checked="true" value="' + value + '"/>' + label + '<BR>'));
+    $(opts.position).append($('<input type="checkbox" value="' + value + '"/>' + label + '<BR>'));
   });
 }
 function facet_params(position, param) {
@@ -357,7 +357,7 @@ function facet_params(position, param) {
     }
   });
   str = str + ")";
-  if ($(position + " input").length == cnt) {
+  if (cnt == 0) {
     params[param] = "= ?" + param;
   } else {
     params[param] = str;
