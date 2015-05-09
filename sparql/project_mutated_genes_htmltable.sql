@@ -11,6 +11,7 @@ SELECT
       ?mutation icgc:mutation_id ?mutation_id .
       ?detection icgc:mutation ?mutation .
       ?detection icgc:donor ?donor .
+      ?donor icgc:project <http://icgc.link/Project/$project_code>
     }
   }
 GROUP BY ?gene

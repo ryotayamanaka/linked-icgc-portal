@@ -6,7 +6,7 @@ SELECT
   (?country AS ?Country)
   (?donors AS ?Total_Number_of_Donors)
 WHERE {
-  <http://icgc.link/Project/PRAD-CA>
+  <http://icgc.link/Project/$project_code>
     icgc:project_code ?project_code ;
     icgc:project_name ?project_name ;
     icgc:tumour_type ?tumour_type ;
@@ -16,7 +16,7 @@ WHERE {
     SELECT
       (COUNT(*) AS ?donors)
     WHERE {
-      ?donor icgc:project <http://icgc.link/Project/PRAD-CA>
+      ?donor icgc:project <http://icgc.link/Project/$project_code>
     }
   }
 }

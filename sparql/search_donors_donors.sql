@@ -5,15 +5,20 @@ SELECT DISTINCT
   (?gender AS ?Gender)
   (?age AS ?Age)
   (?survival_days AS ?Survival_Days)
-  ?Mutations
+  (?mutations AS ?Mutations)
 WHERE {
   {
     SELECT
       ?donor
-      (COUNT(*) AS ?Mutations)
+      COUNT(*) AS ?mutations
     WHERE {
-      ?detection icgc:donor ?donor .
-      ?detection icgc:mutation ?mutation .
+      SELECT DISTINCT
+        ?donor
+        ?mutation
+      WHERE {
+        ?detection icgc:donor ?donor .
+        ?detection icgc:mutation ?mutation .
+      }
     }
     GROUP BY ?donor
   }
@@ -26,5 +31,5 @@ WHERE {
   ?donor icgc:donor_survival_time ?survival_days .
   $facet
 }
-ORDER BY DESC(?Mutations)
+ORDER BY DESC(?mutations)
 LIMIT 20

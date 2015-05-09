@@ -1,7 +1,9 @@
 // THIS SCRIPT USES JQUERY AND D3SPARQL (BUT NO D3)
 // EACH HTML FILES USE JQUERY AND THE FOLLOWING FUNCTIONS (BUT NO D3SPARQL)
 
-var endpoint = 'http://54.65.89.200:9001/sparql';
+//var endpoint = 'http://icgc.link:9001/sparql';
+var endpoint = 'http://54.238.218.145:9001/sparql';
+
 var params = {};
 
 // index.html
@@ -100,11 +102,14 @@ function donors_htmltable(callback) {
     config["position"] = "#search_donors";
     d3sparql.htmltable(json, config);
     // ADD LINKS
-    $("li#tab1 table tbody tr td:nth-child(1)").each(function(){
+    $("#search_donors table tbody tr td:nth-child(1)").each(function(){
       $(this).html("<a href=./donor.html?donor_id=" + $(this).text() + ">" + $(this).text() + "</a>");
     });
     $("#search_donors table tbody tr td:nth-child(2)").each(function(){
       $(this).html("<a href=./project.html?project_code=" + $(this).text() + ">" + $(this).text() + "</a>");
+    });
+    $("#search_donors table tbody tr td:nth-child(7)").each(function(){
+      $(this).html(separate($(this).text()));
     });
     callback();
   });
@@ -270,7 +275,7 @@ function checkbox_param(param, callback) {
     config["position"] = position;
     d3sparql.checkbox(json, config);
     facet_params(position, param);
-    // EVENTS
+    // SET EVENT
     $(position + " input").each(function(){
       $(this).change(function(){
         facet_params(position, param);
@@ -321,7 +326,7 @@ d3sparql.text = function(json, config) {
     "position":  config.position  || "body",
   }
   data.forEach(function(row){
-    $(opts.position).html(row.item.value);
+    $(opts.position).html(separate(row.item.value));
   });
 }
 d3sparql.checkbox = function(json, config) {
@@ -340,13 +345,23 @@ d3sparql.checkbox = function(json, config) {
   });
 }
 function facet_params(position, param) {
-  var str = '""';
+  var str = "IN (";
+  var cnt = 0;
   $(position + " input").each(function(){
-    if(!$(this).prop('checked')) {
-      str = str + ",\"" + this.value + "\"";
+    if($(this).prop('checked')) {
+      if (cnt != 0) {
+        str = str + ",";
+      }
+      str = str + "\"" + this.value + "\"";
+      cnt = cnt + 1;
     }
   });
-  params[param] = str;
+  str = str + ")";
+  if ($(position + " input").length == cnt) {
+    params[param] = "= ?" + param;
+  } else {
+    params[param] = str;
+  }
 }
 function change_load_status(selector, status){
   if (status == "loading") {
@@ -364,4 +379,7 @@ function is_loaded(selector){
 }
 String.prototype.capitalize = function(){
   return this.charAt(0).toUpperCase() + this.slice(1);
+}
+function separate(num){
+  return String(num).replace( /(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');
 }
