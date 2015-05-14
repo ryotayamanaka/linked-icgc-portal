@@ -2,7 +2,7 @@
 // EACH HTML FILES USE JQUERY AND THE FOLLOWING FUNCTIONS (BUT NO D3SPARQL)
 
 //var endpoint = 'http://icgc.link:9001/sparql';
-var endpoint = 'http://54.178.162.59:9001/sparql';
+var endpoint = 'http://icgc.link:9001/sparql';
 
 var params = {};
 
@@ -279,7 +279,7 @@ function checkbox_param(param, callback) {
     $(position + " input").each(function(){
       $(this).change(function(){
         facet_params(position, param);
-        refresh();
+        refresh_panel();
       });
     });
     callback();
@@ -357,7 +357,7 @@ function facet_params(position, param) {
     }
   });
   str = str + ")";
-  if (cnt == 0) {
+  if (cnt == 0 || cnt == $(position + " input").length) {
     params[param] = "= ?" + param;
   } else {
     params[param] = str;
