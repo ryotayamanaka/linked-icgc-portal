@@ -4,6 +4,7 @@
 <title>Linked ICGC Data Portal</title>
 <script type="text/javascript" src="./lib/jquery-1.10.1.min.js"></script>
 <script type="text/javascript" src="./lib/d3.v3.min.js"></script>
+<script type="text/javascript" src="./lib/jquery.leanModal.min.js"></script>
 <script type="text/javascript" src="./js/d3sparql.js"></script>
 <script type="text/javascript" src="./js/icgc.js"></script>
 <link rel="stylesheet" href="./default.css" type="text/css" />
@@ -11,7 +12,6 @@
 <link rel="shortcut icon" href="./favicon.ico" />
 <script type="text/javascript">
 $(function(){
-  get_header();
   var params = get_params();
   $("#entity_name").html(params["project_code"]);
   project_summary_htmlhash(params, function(){
@@ -38,14 +38,20 @@ $(function(){
         <text id="entity_name" x="65" y="25" font-size="30px" alignment-baseline="central"></text>
       </svg>
     </div>
-    <div><div class="subtitle">Summary</div><div id="summary"></div></div>
+    <div><div class="subtitle">Summary <a class="q" id="summary_q"></a></div><div id="summary"></div></div>
     <div>
-      <div class="subtitle">Most Frequently Mutated Genes</div>
+      <div class="subtitle">Most Frequently Mutated Genes
+        <a class="q" id="mutated_genes_barchart_q"></a>
+        <a class="q" id="mutated_genes_q"></a>
+      </div>
       <div id="mutated_genes_barchart"></div>
       <div id="mutated_genes"></div>
     </div>
     <div>
-      <div class="subtitle">Most Frequent Mutations</div>
+      <div class="subtitle">Most Frequent Mutations
+        <a class="q" id="mutations_barchart_q"></a>
+        <a class="q" id="mutations_htmltable_q"></a>
+      </div>
       <div id="mutations_barchart"></div>
       <div id="mutations_htmltable"></div>
     </div>

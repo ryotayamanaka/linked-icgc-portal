@@ -4,6 +4,7 @@
 <title>Linked ICGC Data Portal</title>
 <script type="text/javascript" src="./lib/jquery-1.10.1.min.js"></script>
 <script type="text/javascript" src="./lib/d3.v3.min.js"></script>
+<script type="text/javascript" src="./lib/jquery.leanModal.min.js"></script>
 <script type="text/javascript" src="./js/d3sparql.js"></script>
 <script type="text/javascript" src="./js/icgc.js"></script>
 <link rel="stylesheet" href="./default.css" type="text/css" />
@@ -11,7 +12,6 @@
 <link rel="shortcut icon" href="./favicon.ico" />
 <script type="text/javascript">
 $(function(){
-  get_header();
   var params = get_params();
   $("#mutation_id").html(params["mutation_id"]);
   mutation_summary_htmlhash(params, function(){
@@ -34,9 +34,9 @@ $(function(){
         <text id="mutation_id" x="65" y="25" font-size="30px" alignment-baseline="central">Donor</text>
       </svg>
     </div>
-    <div><div class="subtitle">Summary</div><div id="summary"></div></div>
-    <div><div class="subtitle">Consequences</div><div id="consequences"></div></div>
-    <div><div class="subtitle">Cancer Distribution</div><div id="cancer_distribution"></div></div>
+    <div><div class="subtitle">Summary <a class="q" id="summary_q"></a></div><div id="summary"></div></div>
+    <div><div class="subtitle">Consequences <a class="q" id="consequences_q"></a></div><div id="consequences"></div></div>
+    <div><div class="subtitle">Cancer Distribution <a class="q" id="cancer_distribution_q"></a></div><div id="cancer_distribution"></div></div>
   </div>
 </body>
 </html>

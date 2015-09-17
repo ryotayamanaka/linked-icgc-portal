@@ -4,6 +4,7 @@
 <title>ICGC Linked Data Portal</title>
 <script type="text/javascript" src="./lib/jquery-1.10.1.min.js"></script>
 <script type="text/javascript" src="./lib/d3.v3.min.js"></script>
+<script type="text/javascript" src="./lib/jquery.leanModal.min.js"></script>
 <script type="text/javascript" src="./js/d3sparql.js"></script>
 <script type="text/javascript" src="./js/icgc.js"></script>
 <link rel="stylesheet" href="./default.css" type="text/css" />
@@ -11,12 +12,10 @@
 <link rel="shortcut icon" href="./favicon.ico" />
 <script type="text/javascript">
 $(function(){
-  get_header();
   index_projects(function(){
     return false;
   });
-})
-$(function(){
+  $("a[rel*=leanModal]").leanModal();
   $("#accordion dt").on("click", function() {
     $(this).next().slideToggle("slow");
     $(this).toggleClass("shown");
@@ -107,7 +106,7 @@ ul {
 	      </div>
 	    </div>
 	    <div class="subcontent">
-	      <div class="subtitle">Data Release</div>
+	      <div class="subtitle">Data Release <a class="q" id="index_projects_q"></a></div>
 	      <div>Only a part of donor data is loaded for the current trial. The pie chart below shows the donor distribution by projects.</div>
 	      <div id="index_projects"></div>
 	      <div id="status"></div>

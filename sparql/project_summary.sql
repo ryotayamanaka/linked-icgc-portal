@@ -1,3 +1,4 @@
+# project_summary.sql
 SELECT
   (?project_code AS ?Code)
   (?project_name AS ?Name)
@@ -16,7 +17,8 @@ WHERE {
     SELECT
       (COUNT(*) AS ?donors)
     WHERE {
-      ?donor icgc:project <http://icgc.link/Project/$project_code>
+      ?donor icgc:project <http://icgc.link/Project/$project_code> .
+      ?donor a <http://icgc.link/Donor>
     }
   }
 }

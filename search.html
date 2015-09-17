@@ -4,6 +4,7 @@
 <title>ICGC Linked Data Portal</title>
 <script type="text/javascript" src="./lib/jquery-1.10.1.min.js"></script>
 <script type="text/javascript" src="./lib/d3.v3.min.js"></script>
+<script type="text/javascript" src="./lib/jquery.leanModal.min.js"></script>
 <script type="text/javascript" src="./js/d3sparql.js"></script>
 <script type="text/javascript" src="./js/icgc.js"></script>
 <link rel="stylesheet" href="./default.css" type="text/css" />
@@ -11,9 +12,6 @@
 <link rel="shortcut icon" href="./favicon.ico" />
 <script type="text/javascript">
 $(function(){
-  
-  get_header();
-  
   // TABPANEL 
   load_panel();
   
@@ -135,13 +133,16 @@ div.piecharts div{
   width:159px;
   float:left;
 }
+div.piecharts div p{
+  margin-left:15px;
+}
 ul.tab li{
 	list-style-type:none;
 	width:220px;
 	height:40px;
 	float:left;
 }
-ul.tab li a{
+ul.tab li a:nth-of-type(1){
 	outline:none;
 	background:#eeeeee;
 	text-decoration:none;
@@ -151,7 +152,7 @@ ul.tab li a{
 	text-align:center;
 	border-bottom:1px solid #9FB7D4;
 }
-ul.tab li a.selected{
+ul.tab li a.selected:nth-of-type(1){
 	background:#ffffff;
 	cursor:default;
 	border:1px solid #9FB7D4;
@@ -213,50 +214,60 @@ div#search_mutations td:nth-of-type(4) {
     </div>
     <div id="facet">
       <dl id="facet">
-        <dt><div class="facet_title">Primary Site</div></dt>
+        <dt><div class="facet_title">Primary Site <a class="q" id="facet_primary_site_q"><i class="fa fa-file-code-o"></i></a></div></dt>
         <dd style="display:inline"><div class="facet_checkbox" id="facet_primary_site"></div></dd>
-        <dt><div class="facet_title">Project</div></dt>
+        <dt><div class="facet_title">Project <a class="q" id="facet_project_code_q"><i class="fa fa-file-code-o"></i></a></div></dt>
         <dd><div class="facet_checkbox" id="facet_project_code"></div></dd>
-        <dt><div class="facet_title">Gender</div></dt>
+        <dt><div class="facet_title">Gender <a class="q" id="facet_gender_q"><i class="fa fa-file-code-o"></i></a></div></dt>
         <dd><div class="facet_checkbox" id="facet_gender"></div></dd>
-        <dt><div class="facet_title">Vital Status</div></dt>
+        <dt><div class="facet_title">Vital Status <a class="q" id="facet_vital_status_q"><i class="fa fa-file-code-o"></i></a></div></dt>
         <dd><div class="facet_checkbox" id="facet_vital_status"></div></dd>
       </dl>
     </div>
 		<div id="container">
 	    <ul class="tab">
-		    <li><a id="tab1x" href="#tab1" class="selected">Donors (<span id="donors_count"></span>)</a></li>
-		    <li><a id="tab2x" href="#tab2">Genes (<span id="genes_count"></span>)</a></li>
-		    <li><a id="tab3x" href="#tab3">Mutations (<span id="mutations_count"></span>)</a></li>
+		    <li>
+	        <a id="tab1x" href="#tab1" class="selected">Donors (<span id="donors_count"></span>)</a>
+	        <a class="q" id="donors_count_q"></a>
+		    </li>
+		    <li>
+	        <a id="tab2x" href="#tab2">Genes (<span id="genes_count"></span>)</a>
+	        <a class="q" id="genes_count_q"></a>
+		    </li>
+		    <li>
+	        <a id="tab3x" href="#tab3">Mutations (<span id="mutations_count"></span>)</a>
+	        <a class="q" id="mutations_count_q"></a>
+		    </li>
 	    </ul>
 	    <ul class="panel">
 		    <li id="tab1">
 		      <div class="load_status"></div>
 		      <div class="piecharts">
-		        <div>Project<div id="project"></div></div>
-		        <div>Gender<div id="gender"></div></div>
-		        <div>Vital Status<div id="vital_status"></div></div>
-		        <div>Age<div id="age"></div></div>
+		        <div><p>Project <a class="q" id="project_q"></a></p><div id="project"></div></div>
+		        <div><p>Gender <a class="q" id="gender_q"></a></p><div id="gender"></div></div>
+		        <div><p>Vital Status <a class="q" id="vital_status_q"></a></p><div id="vital_status"></div></div>
+		        <div><p>Age <a class="q" id="age_q"></a></p><div id="age"></div></div>
 		      </div>
-		      <div class="subtitle">Donors</div>
+		      <div class="subtitle">Donors <a class="q" id="search_donors_q"></a></div>
 		      <div id="search_donors"></div>
 		    </li>
 		    <li id="tab2">
 		      <div class="load_status"></div>
-		      <div class="subtitle">Genes</div>
+		      <div class="subtitle">Genes <a class="q" id="search_genes_q"></a></div>
 		      <div id="search_genes"></div>
 		    </li>
 		    <li id="tab3">
 		      <div class="load_status"></div>
   		    <div class="piecharts">
-	  	      <div>Consequence Type<div id="consequence_type"></div></div>
-            <div>Platform<div id="platform"></div></div>
+	  	      <div><p>Consequence <a class="q" id="consequence_type_q"></a></p><div id="consequence_type"></div></div>
+            <div><p>Platform <a class="q" id="platform_q"></a></p><div id="platform"></div></div>
           </div>
-		      <div class="subtitle">Mutations</div>
+		      <div class="subtitle">Mutations <a class="q" id="search_mutations_q"></a></div>
 		      <div id="search_mutations"></div>
 		    </li>
 	    </ul>
 		</div>
 	</div>
+	<div id="sparql"><p></p></div>
 </body>
 </html>
