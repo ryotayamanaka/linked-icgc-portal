@@ -23,7 +23,6 @@ $(function(){
   // TABPANEL (CLICK) 
   $("ul.tab li a").click(function(){
     load_panel();
-    //window.history.pushState(null, null, hash);
   })
   
   refresh_sidebar(function(){
@@ -33,26 +32,26 @@ $(function(){
 function load_panel() {
   var hash = window.location.hash;
   if (hash == "") {
-    hash = "#tab1";
+    hash = "#tab_d";
   }
   $("ul.panel li:not(" + hash + ")").hide()
   $("ul.tab li a").removeClass("selected")
-  $("ul.tab li a" + hash + "x").addClass("selected")
+  $("ul.tab li a" + hash + "_anchor").addClass("selected")
   $("ul.panel li").hide()
   $(hash).show()
   load_panel_contents();
 }
 function load_panel_contents() {
   hash = $("ul.tab li a.selected").attr("href");
-  if (hash == "#tab1") { tab1(); }
-  else if (hash == "#tab2") { tab2(); }
-  else if (hash == "#tab3") { tab3(); }
+  if (hash == "#tab_d") { tab_d(); }
+  else if (hash == "#tab_g") { tab_g(); }
+  else if (hash == "#tab_m") { tab_m(); }
 }
 function refresh_sidebar(callback){
-  checkbox_param("primary_site", function(){
-    checkbox_param("project_code", function(){
-      checkbox_param("gender", function(){
-        checkbox_param("vital_status", function(){
+  search_facet("primary_site", function(){
+    search_facet("project_code", function(){
+      search_facet("gender", function(){
+        search_facet("vital_status", function(){
           callback();
         });
       });
@@ -60,36 +59,36 @@ function refresh_sidebar(callback){
   });
 }
 function refresh_panel(){
-  change_load_status("#tab1 div.load_status", "loading");
-  change_load_status("#tab2 div.load_status", "loading");
-  change_load_status("#tab3 div.load_status", "loading");
+  change_load_status("#tab_d div.load_status", "loading");
+  change_load_status("#tab_g div.load_status", "loading");
+  change_load_status("#tab_m div.load_status", "loading");
   search_count(function(){
     load_panel_contents();
   });
 }
-function tab1(){
-  if(is_loaded("#tab1 div.load_status")) {
-    donors_piecharts(function(){
-      donors_htmltable(function(){
-        change_load_status("#tab1 div.load_status", "loaded");
+function tab_d(){
+  if(is_loaded("#tab_d div.load_status")) {
+    search_d_piecharts(function(){
+      search_d_htmltable(function(){
+        change_load_status("#tab_d div.load_status", "loaded");
         return false;
       });
     });
   }
 }
-function tab2(){
-  if(is_loaded("#tab2 div.load_status")) {
-    genes_htmltable(function(){
-      change_load_status("#tab2 div.load_status", "loaded");
+function tab_g(){
+  if(is_loaded("#tab_g div.load_status")) {
+    search_g_htmltable(function(){
+      change_load_status("#tab_g div.load_status", "loaded");
       return false;
     });
   }
 }
-function tab3(){
-  if(is_loaded("#tab3 div.load_status")) {
-    mutations_piecharts(function(){
-      mutations_htmltable(function(){
-        change_load_status("#tab3 div.load_status", "loaded");
+function tab_m(){
+  if(is_loaded("#tab_m div.load_status")) {
+    search_m_piecharts(function(){
+      search_m_htmltable(function(){
+        change_load_status("#tab_m div.load_status", "loaded");
         return false;
       });
     });
@@ -228,42 +227,42 @@ div#search_mutations td:nth-of-type(4) {
 		<div id="container">
 	    <ul class="tab">
 		    <li>
-	        <a id="tab1x" href="#tab1" class="selected">Donors (<span id="donors_count"></span>)</a>
-	        <a class="q" id="donors_count_q"></a>
+	        <a id="tab_d_anchor" href="#tab_d" class="selected">Donors (<span id="d_count"></span>)</a>
+	        <a class="q" id="d_count_q"></a>
 		    </li>
 		    <li>
-	        <a id="tab2x" href="#tab2">Genes (<span id="genes_count"></span>)</a>
-	        <a class="q" id="genes_count_q"></a>
+	        <a id="tab_g_anchor" href="#tab_g">Genes (<span id="g_count"></span>)</a>
+	        <a class="q" id="g_count_q"></a>
 		    </li>
 		    <li>
-	        <a id="tab3x" href="#tab3">Mutations (<span id="mutations_count"></span>)</a>
-	        <a class="q" id="mutations_count_q"></a>
+	        <a id="tab_m_anchor" href="#tab_m">Mutations (<span id="m_count"></span>)</a>
+	        <a class="q" id="m_count_q"></a>
 		    </li>
 	    </ul>
 	    <ul class="panel">
-		    <li id="tab1">
+		    <li id="tab_d">
 		      <div class="load_status"></div>
 		      <div class="piecharts">
-		        <div><p>Project <a class="q" id="project_q"></a></p><div id="project"></div></div>
-		        <div><p>Gender <a class="q" id="gender_q"></a></p><div id="gender"></div></div>
+		        <div><p>Project      <a class="q" id="project_q"></a></p><div id="project"></div></div>
+		        <div><p>Gender       <a class="q" id="gender_q"></a></p><div id="gender"></div></div>
 		        <div><p>Vital Status <a class="q" id="vital_status_q"></a></p><div id="vital_status"></div></div>
-		        <div><p>Age <a class="q" id="age_q"></a></p><div id="age"></div></div>
+		        <div><p>Age          <a class="q" id="age_q"></a></p><div id="age"></div></div>
 		      </div>
 		      <div class="subtitle">Donors <a class="q" id="search_donors_q"></a></div>
 		      <div id="search_donors"></div>
 		    </li>
-		    <li id="tab2">
+		    <li id="tab_g">
 		      <div class="load_status"></div>
-		      <div class="subtitle">Genes <a class="q" id="search_genes_q"></a></div>
+		      <div class="subtitle">Genes  <a class="q" id="search_genes_q"></a></div>
 		      <div id="search_genes"></div>
 		    </li>
-		    <li id="tab3">
+		    <li id="tab_m">
 		      <div class="load_status"></div>
   		    <div class="piecharts">
 	  	      <div><p>Consequence <a class="q" id="consequence_type_q"></a></p><div id="consequence_type"></div></div>
             <div><p>Platform <a class="q" id="platform_q"></a></p><div id="platform"></div></div>
           </div>
-		      <div class="subtitle">Mutations <a class="q" id="search_mutations_q"></a></div>
+		      <div class="subtitle">Mutations&nbsp;<a class="q" id="search_mutations_q"></a></div>
 		      <div id="search_mutations"></div>
 		    </li>
 	    </ul>

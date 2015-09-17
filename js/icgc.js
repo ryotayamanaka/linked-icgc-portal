@@ -29,7 +29,7 @@ function index_projects(callback) {
   // PROJECT
   d3sparql.queryfile(endpoint, "./sparql/index_projects.sql", undefined, function(sparql, json) {
     var position = "index_projects";
-    addSPARQL("index_projects", "#index_projects_q", sparql);
+    addSPARQL("#index_projects", "#index_projects_q", sparql);
     config["position"] = "#index_projects";
     d3sparql.piechart(json, config);
     callback();
@@ -54,11 +54,10 @@ function index_status(callback) {
 }
 
 // PAGE: search.html
-function checkbox_param(param, callback) {
+function search_facet(param, callback) {
   d3sparql.queryfile(endpoint, "./sparql/facet_" + param + ".sql", null, function(sparql, json) {
-    var id = "facet_" + param;
-    var selector = "#" + id;
-    addSPARQL(id, selector + "_q", sparql);
+    var selector = "#facet_" + param;
+    addSPARQL(selector, selector + "_q", sparql);
     var config = {};
     config["position"] = selector;
     d3sparql.checkbox(json, config);
@@ -77,27 +76,25 @@ function search_count(callback) {
   var config = {};
   // DONORS
   d3sparql.queryfile(endpoint, "./sparql/search_donors_count.sql", params, function(sparql, json) {
-    addSPARQL("donors_count", "#donors_count_q", sparql);
-    config["position"] = "#donors_count";
+    addSPARQL("#d_count", "#d_count_q", sparql);
+    config["position"] = "#d_count";
     d3sparql.text(json, config);
     // GENES
     d3sparql.queryfile(endpoint, "./sparql/search_genes_count.sql", params, function(sparql, json) {
-      addSPARQL("genes_count", "#genes_count_q", sparql);
-      config["position"] = "#genes_count";
+      addSPARQL("#g_count", "#g_count_q", sparql);
+      config["position"] = "#g_count";
       d3sparql.text(json, config);
       // MUTATIONS
       d3sparql.queryfile(endpoint, "./sparql/search_mutations_count.sql", params, function(sparql, json) {
-        addSPARQL("mutations_count", "#mutations_count_q", sparql);
-        config["position"] = "#mutations_count";
+        addSPARQL("#m_count", "#m_count_q", sparql);
+        config["position"] = "#m_count";
         d3sparql.text(json, config);
         callback();
       });
     });
   });
 }
-
-// PAGE: search.html (donors)
-function donors_piecharts(callback) {
+function search_d_piecharts(callback) {
   var config = {
     "label": "item",
     "size": "value",
@@ -108,22 +105,22 @@ function donors_piecharts(callback) {
   };
   // PROJECT
   d3sparql.queryfile(endpoint, "./sparql/search_donors_project.sql", params, function(sparql, json) {
-    addSPARQL("project", "#project_q", sparql);
+    addSPARQL("#project", "#project_q", sparql);
     config["position"] = "#project";
     d3sparql.piechart(json, config);
     // GENDER
     d3sparql.queryfile(endpoint, "./sparql/search_donors_gender.sql", params, function(sparql, json) {
-      addSPARQL("gender", "#gender_q", sparql);
+      addSPARQL("#gender", "#gender_q", sparql);
       config["position"] = "#gender";
       d3sparql.piechart(json, config);
       // VITAL STATUS
       d3sparql.queryfile(endpoint, "./sparql/search_donors_vital-status.sql", params, function(sparql, json) {
-        addSPARQL("vital_status", "#vital_status_q", sparql);
+        addSPARQL("#vital_status", "#vital_status_q", sparql);
         config["position"] = "#vital_status";
         d3sparql.piechart(json, config);
         // AGE
         d3sparql.queryfile(endpoint, "./sparql/search_donors_age.sql", params, function(sparql, json) {
-          addSPARQL("age", "#age_q", sparql);
+          addSPARQL("#age", "#age_q", sparql);
           config["position"] = "#age";
           d3sparql.piechart(json, config);
           // CALLBACK
@@ -133,10 +130,10 @@ function donors_piecharts(callback) {
     });
   });
 }
-function donors_htmltable(callback) {
+function search_d_htmltable(callback) {
   d3sparql.queryfile(endpoint, "./sparql/search_donors_donors.sql", params, function(sparql, json) {
     var config = {};
-    addSPARQL("search_donors", "#search_donors_q", sparql);
+    addSPARQL("#search_donors", "#search_donors_q", sparql);
     config["position"] = "#search_donors";
     d3sparql.htmltable(json, config);
     // ADD LINKS
@@ -152,12 +149,10 @@ function donors_htmltable(callback) {
     callback();
   });
 }
-
-// PAGE: search.html (genes)
-function genes_htmltable(callback) {
+function search_g_htmltable(callback) {
   d3sparql.queryfile(endpoint, "./sparql/search_genes_genes.sql", params, function(sparql, json) {
     var config = {};
-    addSPARQL("search_genes", "#search_genes_q", sparql);
+    addSPARQL("#search_genes", "#search_genes_q", sparql);
     config["position"] = "#search_genes";
     d3sparql.htmltable(json, config);
     // ADD LINKS
@@ -167,9 +162,7 @@ function genes_htmltable(callback) {
     callback();
   });
 }
-
-// PAGE: search.html (mutations)
-function mutations_piecharts(callback) {
+function search_m_piecharts(callback) {
   var config = {
     "label": "item",
     "size": "value",
@@ -179,21 +172,21 @@ function mutations_piecharts(callback) {
     "hole":    0,
   };
   d3sparql.queryfile(endpoint, "./sparql/search_mutations_consequence-type.sql", params, function(sparql, json) {
-    addSPARQL("consequence_type", "#consequence_type_q", sparql);
+    addSPARQL("#consequence_type", "#consequence_type_q", sparql);
     config["position"] = "#consequence_type";
     d3sparql.piechart(json, config);
     d3sparql.queryfile(endpoint, "./sparql/search_mutations_platform.sql", params, function(sparql, json) {
-      addSPARQL("platform", "#platform_q", sparql);
+      addSPARQL("#platform", "#platform_q", sparql);
       config["position"] = "#platform";
       d3sparql.piechart(json, config);
       callback();
     });
   });
 }
-function mutations_htmltable(callback) {
+function search_m_htmltable(callback) {
   d3sparql.queryfile(endpoint, "./sparql/search_mutations_mutations.sql", params, function(sparql, json) {
     var config = {};
-    addSPARQL("search_mutations", "#search_mutations_q", sparql);
+    addSPARQL("#search_mutations", "#search_mutations_q", sparql);
     config["position"] = "#search_mutations";
     d3sparql.htmltable(json, config);
     // ADD LINKS
@@ -208,7 +201,7 @@ function mutations_htmltable(callback) {
 function project_summary_htmlhash(params, callback) {
   d3sparql.queryfile(endpoint, "./sparql/project_summary.sql", params, function(sparql, json) {
     var config = {"position":"#summary"};
-    addSPARQL("summary", "#summary_q", sparql);
+    addSPARQL("#summary", "#summary_q", sparql);
     d3sparql.htmlhash(json, config);
     callback();
   });
@@ -225,7 +218,7 @@ function project_mutated_genes_barchart(params, callback) {
       "margin":  40,  // canvas margin
       "position":"#mutated_genes_barchart",
     }
-    addSPARQL("mutated_genes_barchart", "#mutated_genes_barchart_q", sparql);
+    addSPARQL("#mutated_genes_barchart", "#mutated_genes_barchart_q", sparql);
     d3sparql.barchart(json, config);
     callback();
   });
@@ -233,7 +226,7 @@ function project_mutated_genes_barchart(params, callback) {
 function project_mutated_genes_htmltable(params, callback) {
   d3sparql.queryfile(endpoint, "./sparql/project_mutated_genes_htmltable.sql", params, function(sparql, json) {
     var config = {"position":"#mutated_genes"};
-    addSPARQL("mutated_genes", "#mutated_genes_q", sparql);
+    addSPARQL("#mutated_genes", "#mutated_genes_q", sparql);
     d3sparql.htmltable(json, config);
     callback();
   });
@@ -250,7 +243,7 @@ function project_mutations_barchart(params, callback) {
       "margin":  40,  // canvas margin
       "position":"#mutations_barchart",
     }
-    addSPARQL("mutations_barchart", "#mutations_barchart_q", sparql);
+    addSPARQL("#mutations_barchart", "#mutations_barchart_q", sparql);
     d3sparql.barchart(json, config);
     callback();
   });
@@ -258,7 +251,7 @@ function project_mutations_barchart(params, callback) {
 function project_mutations_htmltable(params, callback) {
   d3sparql.queryfile(endpoint, "./sparql/project_mutations_htmltable.sql", params, function(sparql, json) {
     var config = {"position":"#mutations_htmltable"};
-    addSPARQL("mutations_htmltable", "#mutations_htmltable_q", sparql);
+    addSPARQL("#mutations_htmltable", "#mutations_htmltable_q", sparql);
     d3sparql.htmltable(json, config);
     callback();
   });
@@ -268,7 +261,7 @@ function project_mutations_htmltable(params, callback) {
 function donor_summary_htmlhash(params, callback) {
   d3sparql.queryfile(endpoint, "./sparql/donor_summary.sql", params, function(sparql, json) {
     var config = {};
-    addSPARQL("summary", "#summary_q", sparql);
+    addSPARQL("#summary", "#summary_q", sparql);
     config["position"] = "#summary";
     d3sparql.htmlhash(json, config);
     callback();
@@ -279,7 +272,7 @@ function donor_summary_htmlhash(params, callback) {
 function gene_summary_htmlhash(params, callback) {
   d3sparql.queryfile(endpoint, "./sparql/gene_summary.sql", params, function(sparql, json) {
     var config = {};
-    addSPARQL("summary", "#summary_q", sparql);
+    addSPARQL("#summary", "#summary_q", sparql);
     config["position"] = "#summary";
     d3sparql.htmlhash(json, config);
     callback();
@@ -290,7 +283,7 @@ function gene_summary_htmlhash(params, callback) {
 function mutation_summary_htmlhash(params, callback) {
   d3sparql.queryfile(endpoint, "./sparql/mutation_summary.sql", params, function(sparql, json) {
     var config = {};
-    addSPARQL("summary", "#summary_q", sparql);
+    addSPARQL("#summary", "#summary_q", sparql);
     config["position"] = "#summary";
     d3sparql.htmlhash(json, config);
     callback();
@@ -300,7 +293,7 @@ function mutation_consequences_htmltable(params, callback) {
   d3sparql.queryfile(endpoint, "./sparql/mutation_consequences.sql", params, function(sparql, json) {
     var config = {};
     config["position"] = "#consequences";
-    addSPARQL("consequences", "#consequences_q", sparql);
+    addSPARQL("#consequences", "#consequences_q", sparql);
     d3sparql.htmltable(json, config);
     // ADD LINKS
     $("div#consequences table tbody tr td:nth-child(1)").each(function(){
@@ -312,7 +305,7 @@ function mutation_consequences_htmltable(params, callback) {
 function mutation_cancer_distribution_htmltable(params, callback) {
   d3sparql.queryfile(endpoint, "./sparql/mutation_cancer_distribution.sql", params, function(sparql, json) {
     var config = {};
-    addSPARQL("cancer_distribution", "#cancer_distribution_q", sparql);
+    addSPARQL("#cancer_distribution", "#cancer_distribution_q", sparql);
     config["position"] = "#cancer_distribution";
     d3sparql.htmltable(json, config);
     callback();
@@ -320,16 +313,14 @@ function mutation_cancer_distribution_htmltable(params, callback) {
 }
 
 // COMMON FUNCTIONS
-function addSPARQL(id, anchor, sparql) {
-  $(anchor).attr("rel", "leanModal").attr("href", "#" + id + "_sparql").html('<i class="fa fa-file-code-o"></i>');
+function addSPARQL(selector, anchor, sparql) {
+  $(anchor).attr("rel", "leanModal").attr("href", selector + "_sparql").html('<i class="fa fa-file-code-o"></i>');
   $("#lean_overlay").remove(); // MULTIPLE CALLS OF leanModal() GENERATE REDUNDANT lean_overlay
   $(anchor).leanModal(); // REGISTER AN EVENT FOR THIS ANCHOR
-  $("#" + id + "_sparql").remove();
-  $("#main").after('<div id="' + id + '_sparql" class="sparql"></div>');
-  $("#" + id + "_sparql").html('<textarea class="sparql">' + escapeHTML(sparql) + "</textarea>");
-}
-function escapeHTML(html) {
-  return jQuery('<div>').text(html).html();
+  $(selector + "_sparql").remove();
+  $("#main").after('<div id="' + selector.replace('#', '') + '_sparql" class="sparql"></div>');
+  var sparql_escaped = jQuery('<div>').text(sparql).html();
+  $(selector + "_sparql").html('<textarea class="sparql">' + sparql_escaped + "</textarea>");
 }
 function get_params() {
   var url = location.href;
