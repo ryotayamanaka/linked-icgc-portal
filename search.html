@@ -97,8 +97,8 @@ function tab3(){
 }
 // FACET MENU ACCORDION 
 $(function(){
-  $("#facet dt").on("click", function() {
-      $(this).next().slideToggle();
+  $("#facet dt a:nth-of-type(1)").on("click", function() {
+      $(this).parent().next().slideToggle();
   });
 });
 </script>
@@ -110,9 +110,10 @@ div#facet{
   margin:50px auto;
   float:left;
 }
-div.facet_title{
+a.facet_title{
   font-size:18px;
   margin:10px auto;
+  color:black;
 }
 div.facet_checkbox{
   margin:10px 5px;
@@ -214,14 +215,14 @@ div#search_mutations td:nth-of-type(4) {
     </div>
     <div id="facet">
       <dl id="facet">
-        <dt><div class="facet_title">Primary Site <a class="q" id="facet_primary_site_q"><i class="fa fa-file-code-o"></i></a></div></dt>
+        <dt><a class="facet_title">Primary Site</a>&nbsp;<a class="q" id="facet_primary_site_q"></a></dt>
         <dd style="display:inline"><div class="facet_checkbox" id="facet_primary_site"></div></dd>
-        <dt><div class="facet_title">Project <a class="q" id="facet_project_code_q"><i class="fa fa-file-code-o"></i></a></div></dt>
-        <dd><div class="facet_checkbox" id="facet_project_code"></div></dd>
-        <dt><div class="facet_title">Gender <a class="q" id="facet_gender_q"><i class="fa fa-file-code-o"></i></a></div></dt>
-        <dd><div class="facet_checkbox" id="facet_gender"></div></dd>
-        <dt><div class="facet_title">Vital Status <a class="q" id="facet_vital_status_q"><i class="fa fa-file-code-o"></i></a></div></dt>
-        <dd><div class="facet_checkbox" id="facet_vital_status"></div></dd>
+        <dt><a class="facet_title">Project</a>&nbsp;<a class="q" id="facet_project_code_q"></a></dt>
+        <dd style="display:inline"><div class="facet_checkbox" id="facet_project_code"></div></dd>
+        <dt><a class="facet_title">Gender</a>&nbsp;<a class="q" id="facet_gender_q"></a></dt>
+        <dd style="display:inline"><div class="facet_checkbox" id="facet_gender"></div></dd>
+        <dt><a class="facet_title">Vital Status</a>&nbsp;<a class="q" id="facet_vital_status_q"></a></dt>
+        <dd style="display:inline"><div class="facet_checkbox" id="facet_vital_status"></div></dd>
       </dl>
     </div>
 		<div id="container">

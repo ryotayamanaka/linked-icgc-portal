@@ -56,16 +56,17 @@ function index_status(callback) {
 // PAGE: search.html
 function checkbox_param(param, callback) {
   d3sparql.queryfile(endpoint, "./sparql/facet_" + param + ".sql", null, function(sparql, json) {
-    var position = "facet_" + param;
-    addSPARQL(position, "#" + position + "_q", sparql);
+    var id = "facet_" + param;
+    var selector = "#" + id;
+    addSPARQL(id, selector + "_q", sparql);
     var config = {};
-    config["position"] = "#" + position;
+    config["position"] = selector;
     d3sparql.checkbox(json, config);
-    facet_params(position, param);
+    facet_params(selector, param);
     // SET EVENT
-    $(position + " input").each(function(){
+    $(selector + " input").each(function(){
       $(this).change(function(){
-        facet_params(position, param);
+        facet_params(selector, param);
         refresh_panel();
       });
     });
@@ -74,7 +75,6 @@ function checkbox_param(param, callback) {
 }
 function search_count(callback) {
   var config = {};
-  var projects = [];
   // DONORS
   d3sparql.queryfile(endpoint, "./sparql/search_donors_count.sql", params, function(sparql, json) {
     addSPARQL("donors_count", "#donors_count_q", sparql);
@@ -320,9 +320,11 @@ function mutation_cancer_distribution_htmltable(params, callback) {
 }
 
 // COMMON FUNCTIONS
-function addSPARQL(id, selector, sparql) {
-  $(selector).attr("rel", "leanModal").attr("href", "#" + id + "_sparql").html('<i class="fa fa-file-code-o"></i>');
-  $(selector).leanModal();
+function addSPARQL(id, anchor, sparql) {
+  $(anchor).attr("rel", "leanModal").attr("href", "#" + id + "_sparql").html('<i class="fa fa-file-code-o"></i>');
+  $("#lean_overlay").remove(); // MULTIPLE CALLS OF leanModal() GENERATE REDUNDANT lean_overlay
+  $(anchor).leanModal(); // REGISTER AN EVENT FOR THIS ANCHOR
+  $("#" + id + "_sparql").remove();
   $("#main").after('<div id="' + id + '_sparql" class="sparql"></div>');
   $("#" + id + "_sparql").html('<textarea class="sparql">' + escapeHTML(sparql) + "</textarea>");
 }
