@@ -1,7 +1,7 @@
 // THIS SCRIPT USES JQUERY AND D3SPARQL (BUT NO D3)
 // EACH HTML FILES USE JQUERY AND THE FOLLOWING FUNCTIONS (BUT NO D3SPARQL)
 
-var endpoint = 'http://icgc.link:9001/sparql';
+var endpoint = 'http://54.178.162.59:9001/sparql';
 
 var params = {};
 

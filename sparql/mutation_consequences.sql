@@ -1,6 +1,6 @@
 # mutation_consequences.sql
 SELECT
-  (?gene_affected AS ?Gene)
+  (?gene_id AS ?Gene)
   (?aa_mutation AS ?AA_Change)
   (?consequence_type AS ?Consequence)
   (?cds_mutation AS ?Coding_DNA_Change)
@@ -12,6 +12,7 @@ WHERE {
     icgc:aa_mutation ?aa_mutation ;
     icgc:cds_mutation ?cds_mutation ;
     icgc:gene_affected ?gene_affected ;
-    icgc:transcript_affected ?transcript_affected
+    icgc:transcript_affected ?transcript_affected .
+  ?gene_affected dct:identifier ?gene_id
 }
 ORDER BY ?consequence_type ?transcript_affected

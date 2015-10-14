@@ -13,7 +13,9 @@ WHERE {
       ?donor
     WHERE {
       ?effect icgc:mutation ?mutation .
-      ?effect icgc:gene_affected_bio2rdf ?gene .
+      ?effect icgc:gene_affected ?icgc_gene .
+      ?icgc_gene owl:sameAs ?gene .
+      ?gene a bio2rdf-ensembl:Resource .
       ?mutation icgc:mutation_id ?mutation_id .
       ?detection icgc:mutation ?mutation .
       ?detection icgc:donor ?donor .

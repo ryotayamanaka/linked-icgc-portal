@@ -15,14 +15,15 @@ WHERE {
   OPTIONAL { ?gene_hgnc hgnc_vocabulary:x-omim [ bio2rdf_vocabulary:identifier ?omim_id ] . }
   OPTIONAL { ?gene_hgnc hgnc_vocabulary:x-uniprot [ bio2rdf_vocabulary:identifier ?uniprot_id ] . }
   {
-    SELECT
-      ?ssm_effect
+    SELECT DISTINCT
       ?gene_id
       ?gene_hgnc
     WHERE {
-      ?ssm_effect icgc:gene_affected "$gene_id" .
-      ?ssm_effect icgc:gene_affected ?gene_id .
-      ?ssm_effect icgc:gene_affected_bio2rdf ?gene_ensembl .
+      ?gene_icgc dct:identifier "$gene_id" .
+      ?gene_icgc dct:identifier ?gene_id .
+      ?ssm_effect icgc:gene_affected ?gene_icgc .
+      ?gene_icgc owl:sameAs ?gene_ensembl .
+      ?gene_ensembl a bio2rdf-ensembl:Resource .
       ?gene_hgnc hgnc_vocabulary:x-ensembl ?gene_ensembl .
     }
   }

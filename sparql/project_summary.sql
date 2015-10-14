@@ -4,7 +4,7 @@ SELECT
   (?project_name AS ?Name)
   (?tumour_type AS ?Tumour_Type)
   (?tumour_subtype AS ?Tumour_Subtype)
-  (?country AS ?Country)
+  (?countries AS ?Countries)
   (?donors AS ?Total_Number_of_Donors)
 WHERE {
   <http://icgc.link/Project/$project_code>
@@ -12,7 +12,7 @@ WHERE {
     icgc:project_name ?project_name ;
     icgc:tumour_type ?tumour_type ;
     icgc:tumour_subtype ?tumour_subtype ;
-    icgc:country ?country .
+    icgc:countries ?countries .
   {
     SELECT
       (COUNT(*) AS ?donors)
