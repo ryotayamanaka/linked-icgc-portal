@@ -12,20 +12,15 @@ WHERE {
       ?gene
       ?donor
     WHERE {
-      ?effect icgc:mutation ?mutation .
-      ?effect icgc:gene_affected ?icgc_gene .
-      ?icgc_gene owl:sameAs ?gene .
-      ?gene a bio2rdf-ensembl:Resource .
-      ?mutation icgc:mutation_id ?mutation_id .
-      ?detection icgc:mutation ?mutation .
-      ?detection icgc:donor ?donor .
       $facet
     }
   }
   GROUP BY ?gene
   }
-  ?gene bio2rdf_vocabulary:identifier ?identifier .
-  ?hgnc_gene hgnc_vocabulary:x-ensembl ?gene .
+  ?gene rdfs:seeAlso ?gene_bio2rdf .
+  ?gene_bio2rdf a bio2rdf-ensembl:Resource .
+  ?gene_bio2rdf bio2rdf_vocabulary:identifier ?identifier .
+  ?hgnc_gene hgnc_vocabulary:x-ensembl ?gene_bio2rdf .
   ?hgnc_gene hgnc_vocabulary:approved-symbol ?approved_symbol .
 }
 ORDER BY DESC(?Donors)

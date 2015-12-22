@@ -1,9 +1,15 @@
 SELECT
-  ?item
-  (COUNT(?item) AS ?value)
+  ?gender AS ?item
+  COUNT(*) AS ?value
 WHERE {
-  ?donor icgc:donor_sex ?item .
-  $facet
+  SELECT DISTINCT
+    ?donor
+    COALESCE(?gender, "No Data") AS ?gender
+  WHERE {
+    ?donor a <http://icgc.link/Donor> .
+    OPTIONAL { ?donor icgc:sex ?gender . }
+    $facet
+  }
 }
-GROUP BY ?item
+GROUP BY ?gender
 ORDER BY DESC(?value)

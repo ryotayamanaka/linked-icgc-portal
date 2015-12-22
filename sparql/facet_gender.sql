@@ -1,4 +1,4 @@
 SELECT DISTINCT
   ?item
-WHERE {?project icgc:donor_sex ?item}
+WHERE {?project icgc:sex ?item}
 ORDER BY ?item

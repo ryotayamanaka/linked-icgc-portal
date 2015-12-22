@@ -1,14 +1,14 @@
 # mutation_cancer_distribution.sql
 SELECT
-  (?project_code AS ?Project)
-  (?tumour_type AS ?Tumour_Type)
-  (?tumour_subtype AS ?Tumour_Subtype)
-  (?count AS ?Donors_Affected)
+  (COALESCE(?project_code, "(No Data)") AS ?Project)
+  (COALESCE(?tumour_type, "(No Data)") AS ?Tumour_Type)
+  (COALESCE(?tumour_subtype, "(No Data)") AS ?Tumour_Subtype)
+  (COALESCE(?count, "(No Data)") AS ?Donors_Affected)
 WHERE {
-  ?project icgc:project_code ?project_code .
-  ?project icgc:project_name ?project_name .
-  ?project icgc:tumour_type ?tumour_type .
-  ?project icgc:tumour_subtype ?tumour_subtype .
+  OPTIONAL { ?project icgc:project_code ?project_code . }
+  OPTIONAL { ?project icgc:project_name ?project_name . }
+  OPTIONAL { ?project icgc:tumour_type ?tumour_type . }
+  OPTIONAL { ?project icgc:tumour_subtype ?tumour_subtype . }
   {
     SELECT
       ?project
@@ -16,7 +16,8 @@ WHERE {
     WHERE {
       ?detection
         icgc:mutation <http://icgc.link/Mutation/$mutation_id> ;
-        icgc:project ?project .
+        icgc:donor ?donor .
+      ?donor icgc:project ?project
     }
     GROUP BY ?project
   }

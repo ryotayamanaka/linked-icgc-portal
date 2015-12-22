@@ -1,3 +1,3 @@
 SELECT DISTINCT
   ?item
-WHERE {?project icgc:donor_vital_status ?item}
+WHERE {?project icgc:vital_status ?item}

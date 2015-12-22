@@ -336,9 +336,11 @@ d3sparql.queryfile = function(endpoint, sparqlfile, params, callback) {
     $.get("./sparql/facet.sql", function(facet) {
       $.get(sparqlfile, function(sparql) {
         if (sparql.search("$facet")) {
+          // REPLACE $facet WITH facet.sql
           sparql = sparql.split("$facet").join(facet);
         }
         for (param in params) {
+          // REPLACE EACH $param WITH params STRING
           sparql = sparql.split("$" + param).join(params[param]);
         }
         sparql = prefix + sparql;
@@ -379,8 +381,11 @@ d3sparql.checkbox = function(json, config) {
     $(opts.position).append($('<input type="checkbox" value="' + value + '"/>' + label + '<BR>'));
   });
 }
+// GENERATE params STRING
 function facet_params(position, param) {
-  var str = "IN (";
+  //var str = "IN (";
+  var str = "";
+  str = str + "FILTER ($" + param + " IN("
   var cnt = 0;
   $(position + " input").each(function(){
     if($(this).prop('checked')) {
@@ -391,9 +396,10 @@ function facet_params(position, param) {
       cnt = cnt + 1;
     }
   });
-  str = str + ")";
+  str = str + "))";
   if (cnt == 0 || cnt == $(position + " input").length) {
-    params[param] = "= ?" + param;
+    //params[param] = "= ?" + param;
+    params[param] = "";
   } else {
     params[param] = str;
   }

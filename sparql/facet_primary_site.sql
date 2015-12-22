@@ -1,3 +1,5 @@
 SELECT DISTINCT
   ?item
-WHERE {?project icgc:primary_site ?item}
+WHERE {
+  ?project icgc:primary_site ?item
+}

@@ -236,7 +236,12 @@ d3sparql.htmltable = function(json, config) {   // RY: ADDED config
   var cells = rows.selectAll("td")
     .data(function(row) {
       return head.map(function(col) {
-        return row[col].value
+        //return row[col].value
+        if (row[col] != null) {
+          return row[col].value
+        } else {
+          return ""
+        }
       })
     })
     .enter()
@@ -288,7 +293,12 @@ d3sparql.htmlhash = function(json, config) {
   var row = tbody.selectAll("tr")
     .data(function() {
        return head.map(function(col) {
-         return {"head": col, "data": data[col].value}
+         //return {"head": col, "data": data[col].value}
+         if (data[col] != null) {
+           return {"head": col, "data": data[col].value}
+         } else {
+           return {"head": col, "data": ""}
+         }
        })
      })
     .enter()

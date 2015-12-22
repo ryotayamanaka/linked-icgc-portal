@@ -7,18 +7,17 @@ SELECT
   (?countries AS ?Countries)
   (?donors AS ?Total_Number_of_Donors)
 WHERE {
-  <http://icgc.link/Project/$project_code>
-    icgc:project_code ?project_code ;
-    icgc:project_name ?project_name ;
-    icgc:tumour_type ?tumour_type ;
-    icgc:tumour_subtype ?tumour_subtype ;
-    icgc:countries ?countries .
+  <http://icgc.link/Project/$project_code> icgc:project_code ?project_code .
+  ?project  icgc:project_code ?project_code .
+  OPTIONAL { ?project icgc:project_name ?project_name . }
+  OPTIONAL { ?project icgc:tumour_type ?tumour_type . }
+  OPTIONAL { ?project icgc:tumour_subtype ?tumour_subtype . }
+  OPTIONAL { ?project icgc:countries ?countries . }
   {
     SELECT
       (COUNT(*) AS ?donors)
     WHERE {
-      ?donor icgc:project <http://icgc.link/Project/$project_code> .
-      ?donor a <http://icgc.link/Donor>
+      ?donor icgc:project ?project .
     }
   }
 }

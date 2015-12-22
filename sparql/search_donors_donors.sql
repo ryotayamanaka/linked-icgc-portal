@@ -1,12 +1,14 @@
 SELECT DISTINCT
   (?id AS ?ID)
-  (?project_code AS ?Project)
-  (?primary_site AS ?Site)
-  (?gender AS ?Gender)
-  (?age AS ?Age)
-  (?survival_days AS ?Survival_Days)
+  (COALESCE(?project_code, "-") AS ?Project)
+  (COALESCE(?primary_site, "-") AS ?Site)
+  (COALESCE(?gender, "-") AS ?Gender)
+  (COALESCE(?age, "-") AS ?Age)
+  (COALESCE(?survival_days, "-") AS ?Survival_Days)
   (?mutations AS ?Mutations)
+  (?genes AS ?Genes)
 WHERE {
+  # MUTATIONS
   {
     SELECT
       ?donor
@@ -16,20 +18,30 @@ WHERE {
         ?donor
         ?mutation
       WHERE {
-        ?detection icgc:donor ?donor .
-        ?detection icgc:mutation ?mutation .
+        $facet
+      }
+    }
+    GROUP BY ?donor
+  }
+  # GENES
+  {
+    SELECT
+      ?donor
+      COUNT(*) AS ?genes
+    WHERE {
+      SELECT DISTINCT
+        ?donor
+        ?gene
+      WHERE {
+        $facet
       }
     }
     GROUP BY ?donor
   }
   ?donor icgc:donor_id ?id .
-  ?donor icgc:project ?project .
-  ?project icgc:project_code ?project_code .
-  ?project icgc:primary_site ?primary_site .
-  ?donor icgc:donor_sex ?gender .
-  ?donor icgc:donor_age_at_diagnosis ?age .
-  ?donor icgc:donor_survival_time ?survival_days .
+  OPTIONAL { ?donor icgc:age_at_diagnosis ?age . }
+  OPTIONAL { ?donor icgc:survival_time ?survival_days . }
   $facet
 }
-ORDER BY DESC(?mutations)
+ORDER BY DESC(?genes)
 LIMIT 20
