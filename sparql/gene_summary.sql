@@ -16,15 +16,14 @@ WHERE {
   OPTIONAL { ?gene_hgnc hgnc_vocabulary:x-uniprot [ bio2rdf_vocabulary:identifier ?uniprot_id ] . }
   {
     SELECT DISTINCT
-      ?gene_id
+      ?identifier AS ?gene_id
       ?gene_hgnc
     WHERE {
-      ?gene_icgc dct:identifier "$gene_id" .
-      ?gene_icgc dct:identifier ?gene_id .
-      ?ssm_effect icgc:gene_affected ?gene_icgc .
-      ?gene_icgc owl:sameAs ?gene_ensembl .
-      ?gene_ensembl a bio2rdf-ensembl:Resource .
-      ?gene_hgnc hgnc_vocabulary:x-ensembl ?gene_ensembl .
+      <http://icgc.link/Gene/$gene_id> rdfs:seeAlso ?gene_bio2rdf .
+      ?gene_bio2rdf a bio2rdf-ensembl:Resource .
+      ?gene_bio2rdf bio2rdf_vocabulary:identifier ?identifier .
+      ?gene_hgnc hgnc_vocabulary:x-ensembl ?gene_bio2rdf .
+      ?gene_hgnc hgnc_vocabulary:approved-symbol ?approved_symbol .
     }
   }
 }

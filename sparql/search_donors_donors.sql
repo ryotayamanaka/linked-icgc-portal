@@ -38,7 +38,7 @@ WHERE {
     }
     GROUP BY ?donor
   }
-  ?donor icgc:donor_id ?id .
+  OPTIONAL { ?donor icgc:donor_id ?id . }
   OPTIONAL { ?donor icgc:age_at_diagnosis ?age . }
   OPTIONAL { ?donor icgc:survival_time ?survival_days . }
   $facet

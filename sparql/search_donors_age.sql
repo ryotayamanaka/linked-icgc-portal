@@ -6,7 +6,6 @@ WHERE {
     ?donor
     ?age_str
   WHERE {
-    ?donor a <http://icgc.link/Donor> .
     OPTIONAL {
       ?donor icgc:age_at_diagnosis ?age
       BIND(FLOOR(xsd:integer(?age)/10) AS ?floor)
