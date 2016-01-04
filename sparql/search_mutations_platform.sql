@@ -23,7 +23,10 @@ WHERE {
       }
     }
     # FILTERING
-    $facet
+    $project_code
+    $primary_site
+    $gender
+    $vital_status
   }
 }
 GROUP BY ?mutation_type

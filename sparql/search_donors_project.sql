@@ -1,13 +1,13 @@
 # search_donors_project.sql
 SELECT
-  ?project_code AS ?item
+  (?project_code AS ?item)
   (COUNT(*) AS ?value)
 WHERE {
-	SELECT DISTINCT
+  SELECT DISTINCT
     ?donor
-    COALESCE(?project_code, "No Data") AS ?project_code
-	WHERE {
-	  ?donor a <http://icgc.link/Donor> .
+    (COALESCE(?project_code, "No Data") AS ?project_code)
+  WHERE {
+    ?donor a <http://icgc.link/Donor> .
     $facet
   }
 }

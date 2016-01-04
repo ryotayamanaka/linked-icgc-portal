@@ -1,10 +1,10 @@
 SELECT
-  ?consequence_type AS ?item
+  (?consequence_type AS ?item)
   (COUNT(?item) AS ?value)
 WHERE {
   SELECT DISTINCT
     ?effect
-    COALESCE(?consequence_type, "No Data") AS ?consequence_type
+    (COALESCE(?consequence_type, "No Data") AS ?consequence_type)
   WHERE {
     # TRAVERSAL
     ?effect a <http://icgc.link/Effect> .
@@ -26,7 +26,10 @@ WHERE {
       }
     }
     # FILTERING
-    $facet
+    $project_code
+    $primary_site
+    $gender
+    $vital_status
   }
 }
 GROUP BY ?consequence_type
